@@ -89,7 +89,7 @@ int MyVec::erase(const int idx) {
     if(idx >= nSize || idx < 0)
     {
         cerr << "idx out of range!" << endl;
-        return nSize - 1;
+        return -1;
     }
     nSize--;
     for(int i = idx; i < nSize; i++)
@@ -104,7 +104,7 @@ int MyVec::erase(const int first, const int last) {
     if(first >= last || first >= nSize || first < 0 || last > nSize || last <= 0)
     {
         cerr << "arguments unavailable!" << endl;
-        return nSize - 1;
+        return -1;
     }
     int idx = last - first;
     nSize -= idx;
