@@ -41,7 +41,7 @@ public:
     Mat morphologyProcess(const Mat& inputImg);
 
 private:
-    const int morphSize = 2; //TODO: 你可以调整形态学变换结构元的大小
+    const int morphSize = 4; //TODO: 你可以调整形态学变换结构元的大小
     Mat morphElement;
 };
 

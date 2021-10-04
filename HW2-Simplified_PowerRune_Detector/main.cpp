@@ -11,8 +11,12 @@
 using recursive_directory_iterator = std::filesystem::recursive_directory_iterator;
 using namespace std;
 using namespace cv;
-int main() {
-    const bool isShowResult = false; // Whether to show result, you can add an arg parser to use in commandline
+int main(int argc, char** argv) {
+    bool isShowResult = false;
+    if(argc > 1 && strcmp(argv[1], "show") == 0)
+    {
+        isShowResult = true; // Whether to show result, you can add an arg parser to use in commandline
+    }
     string srcPath = "./data/input"; // Input path
     string imgPath;
 
