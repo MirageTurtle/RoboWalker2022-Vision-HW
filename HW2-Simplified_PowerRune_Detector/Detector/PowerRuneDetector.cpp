@@ -39,6 +39,50 @@ bool PowerRuneDetector::operator()(const Mat &inputImg, Point2f& target, Mat& ou
      *  4. 如果识别到，设置isDetected变量，将识别到的中心位置放入target返回、识别结果绘制在outImg
      *  5. 如果识别不到，继续下一个轮廓。
      */
+    
+    vector<vector<Point>> contours;
+    vector<Vec4i> hierarchy;
+    float matchVal, maxMatchVal = 0;
+    Point2f matchCenter;
+    Mat roi;
+    RotatedRect boundRect;
+    int idx = -1;
+
+    findContours(inputImg, contours, hierarchy, RETR_TREE, CHAIN_APPROX_SIMPLE);
+    for(int i = 0; i < contours.size(); i++)
+    {
+        // 每一个轮廓
+        boundRect = minAreaRect(contours[i]);
+        // roi = inputImg(Rect(boundingRect(contours[i])));
+        roi = perspectiveTransform(boundRect, inputImg, false);
+        for(int j = 0; j < templArray.size(); j++)
+        {
+            matchVal = getTemplateMatchVal(roi, templArray[j], matchCenter);
+            // cout << matchVal << endl;
+            // namedWindow("detected", WINDOW_AUTOSIZE);
+            // imshow("detected", roi);
+            // waitKey();
+            if(matchVal > maxMatchVal)
+            {
+                maxMatchVal = matchVal;
+                target = matchCenter;
+                if(maxMatchVal > matchValThresh)
+                {
+                    idx = i;
+                }
+            }
+        }
+    }
+    if(idx != -1)
+    {
+        isDetected = true;
+        drawContours(outImg, contours, idx, Scalar(0, 0, 255), 2);
+        drawRotatedRect(outImg, minAreaRect(contours[idx]), Scalar(0, 0, 255), 2);
+    }
+
+    
+    // displayImg = inputImg.clone();
+    // drawContours(displayImg, contours, -1, Scalar(0, 0, 255), 2);
 
     if(showResult) {
         namedWindow("contours", WINDOW_AUTOSIZE);

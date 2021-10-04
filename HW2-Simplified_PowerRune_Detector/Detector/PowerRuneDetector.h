@@ -60,7 +60,7 @@ public:
 private:
     const float matchValThresh = 0.5; //TODO: 需要调整的参数
     const int nTempl; //模板图片的数量
-    const Size2i templSize = Size2i(140, 80); // TODO: 需要调整的参数
+    const Size2i templSize = Size2i(105, 60); // TODO: 需要调整的参数
     vector<Mat> templArray; // 存放模板图片
 };
 
