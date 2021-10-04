@@ -29,3 +29,5 @@ add_executable(${PROJECT_NAME} main.cpp ${SOURCE})
 
 # 将Opencv的链接库链接到Project
 target_link_libraries(${PROJECT_NAME} ${OpenCV_LIBS})
+
+set(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR})

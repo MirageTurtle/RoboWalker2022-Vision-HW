@@ -17,7 +17,7 @@ int main(int argc, char** argv) {
     {
         isShowResult = true; // Whether to show result, you can add an arg parser to use in commandline
     }
-    string srcPath = "../data/input"; // Input path
+    string srcPath = "./data/input"; // Input path
     string imgPath;
 
     // Traverse all image files in input dir
@@ -40,7 +40,7 @@ int main(int argc, char** argv) {
         auto midImg = preprocess(img);
 
         // 3. Detect the power rune leaf that to be shot
-        auto PRDetect = PowerRuneDetector("../data/template/");
+        auto PRDetect = PowerRuneDetector("./data/template/");
         Point2f target; Mat detectResult;
         if(PRDetect(midImg, target, detectResult, isShowResult))
         {
