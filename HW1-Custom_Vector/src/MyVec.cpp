@@ -88,29 +88,35 @@ int MyVec::erase(const int idx) {
     //TODO: 在这里插入你的实现，注意异常参数的处理
     if(idx >= nSize || idx < 0)
     {
-        cerr << "idx out of range!" << endl;
-        return -1;
+        throw "idx out of range!";
     }
     nSize--;
     for(int i = idx; i < nSize; i++)
     {
         dataPtr[i] = dataPtr[i+1];
     }
+    if(idx >= nSize)
+    {
+        return -1;
+    }
     return idx;
 }
 
 int MyVec::erase(const int first, const int last) {
     //TODO: 在这里插入你的实现，注意异常参数的处理
-    if(first >= last || first >= nSize || first < 0 || last > nSize || last <= 0)
+    if(first > last || first >= nSize || first < 0 || last > nSize || last <= 0)
     {
-        cerr << "arguments unavailable!" << endl;
-        return -1;
+        throw "arguments unavailable!";
     }
     int idx = last - first;
     nSize -= idx;
     for(int i = first; i < nSize; i++)
     {
         dataPtr[i] = dataPtr[i+idx];
+    }
+    if(first >= nSize)
+    {
+        return -1;
     }
     return first;
 }
